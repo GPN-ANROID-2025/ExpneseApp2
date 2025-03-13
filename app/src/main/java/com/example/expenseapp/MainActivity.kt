@@ -1,6 +1,7 @@
 package com.example.expenseapp
 
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.sql.Date
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,8 +39,34 @@ class MainActivity : AppCompatActivity() {
         chipGroup.isSingleSelection = true
         chipGroup.isSelectionRequired = true
 
+
+
+//        CoroutineScope(Dispatchers.IO).launch {
+//            categoryDao.insert(Category(name = "Drinks", description = "cold drinks expenses"))
+//        }
+
+
+
        CoroutineScope(Dispatchers.IO).launch {
+
+
+           expenseDao.insert(Expense(
+               amount = 700.00,
+               categoryId = 2,
+               description = "None",
+               date = java.util.Date().date.toLong()
+
+           ))
+
+           val expenseSummary=expenseDao.getCategoryExpenseSummary()
            val categories = categoryDao.getAllActiveCategories()
+
+           for(summery in expenseSummary){
+               Log.d("mytag",  "CatName => ${summery.categoryName}")
+               Log.d("mytag",  "averageAmount => ${summery.averageAmount}")
+               Log.d("mytag",  "totalAmount => ${summery.totalAmount}")
+               Log.d("mytag",  "categoryId => ${summery.categoryId}")
+           }
            withContext(Dispatchers.Main){
               for (category in categories) {
                   val chip = Chip(this@MainActivity).apply {
@@ -50,6 +78,8 @@ class MainActivity : AppCompatActivity() {
               }
           }
        }
+
+
 
 
 
