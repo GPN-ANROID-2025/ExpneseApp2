@@ -13,7 +13,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-@Database(entities = [Category::class, Expense::class], version = 1, exportSchema = false)
+@Database(entities = [Category::class, Expense::class], version = 2)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun categoryDao(): CategoryDao
@@ -32,7 +32,6 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "app_database" // Database name
                 )
-                    .fallbackToDestructiveMigration() // Allows database migration if schema changes
                     .addCallback(AddCategoryCallback())
                     .build()
                 INSTANCE = instance
