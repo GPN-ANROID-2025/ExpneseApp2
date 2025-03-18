@@ -44,9 +44,7 @@ abstract class AppDatabase : RoomDatabase() {
                 super.onCreate(db)
                 val dao= INSTANCE?.categoryDao()
                 CoroutineScope(Dispatchers.IO).launch {
-                    if (dao != null) {
-                        dao.insert(Category(name = "Default", description = ""))
-                    }
+                    dao?.insert(Category(name = "Default", description = ""))
                 }
             }
         }

@@ -11,7 +11,7 @@ import com.example.expenseapp.entity.Expense
 interface ExpenseDao {
 
     @Insert
-    suspend fun insert(expense: Expense)
+    suspend fun insert(expense: Expense):Long
 
     @Update
     suspend fun update(expense: Expense)
