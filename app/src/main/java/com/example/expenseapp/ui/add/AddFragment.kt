@@ -89,6 +89,10 @@ class AddFragment : Fragment() {
 
 
                     }
+
+
+
+
                     chip.setOnCheckedChangeListener { _, isChecked ->
                         if (!isChecked) {
                             // Hide the text when selected (set text to empty for only the selected chip)
