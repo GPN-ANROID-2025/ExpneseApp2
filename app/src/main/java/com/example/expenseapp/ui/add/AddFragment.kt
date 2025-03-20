@@ -69,9 +69,14 @@ class AddFragment : Fragment() {
         expenseDao=db.expenseDao()
         chipGroup.removeAllViews()
 
+
+
+
         chipGroup.isSingleSelection=true
         chipGroup.isSelectionRequired=true
         CoroutineScope(Dispatchers.IO).launch {
+//            categoryDao.insert(Category(name = "Drinks", description = "cold drinks expenses"))
+//            categoryDao.insert(Category(name = "Cloths", description = "cold drinks expenses"))
             categories=categoryDao.getAllActiveCategories()
             withContext(Dispatchers.Main){
                 chipGroup.setOnCheckedStateChangeListener(ChipListener(categories,requireContext()))
@@ -87,11 +92,7 @@ class AddFragment : Fragment() {
                         chip.isChecked=true
                         chip.chipIcon = ContextCompat.getDrawable(requireContext(), R.drawable.check_circle_24px)
 
-
                     }
-
-
-
 
                     chip.setOnCheckedChangeListener { _, isChecked ->
                         if (!isChecked) {
